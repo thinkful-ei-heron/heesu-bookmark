@@ -40,10 +40,15 @@ const findAndUpdate = function(id, newData) {
     Object.assign(updatedItem, newData);
 };
 
+const resetError = function() {
+    this.error = null;
+};
+
 return {
     store,
     findById,
     addItems,
     findAndDelete,
-    findAndUpdate
+    findAndUpdate,
+    resetError
 };

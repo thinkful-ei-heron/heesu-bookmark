@@ -11,12 +11,10 @@
 
     <body>
         <main>
-
-        </main>
         <div class="container">
             <h1>Bookmarks</h1>
-        
-            <form id="js-bookmarkTool">
+            <form class="js-bookmarkTool">
+    
             <div>
                 <label for="title">Bookmark Title</label>
                 <input type="text" placeholder="Google" id="title" required></input>
@@ -35,8 +33,11 @@
             </div>
             </form>
 
+            <section class="js-displayCreateBookmark"></section>
+            <ul class="js-listBookmark"></ul>
             <button type="submit" class="add-item">Make Bookmark</button>
         </div>
+        </main>
 
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" 
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
