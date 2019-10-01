@@ -1,26 +1,36 @@
 'use strict'
+const BASE_URL="https://thinkful-list-api.herokuapp.com/heesu";
 
-const api = (function(){
-    const BASE_URL="https://thinkful-list-api.herokuapp.com/heesu/items";
-    const getItems = function(callback) {
-        $.getJSON(BASE_URL, callback)
-    };
-});
-
-const createItem = function() {
-
+const getItems = function() {
+    return fetch(`${BASE_URL}/bookmarks`);
 };
 
-const newItem = function() {
-    
+const createItem = function(data) {
+    return apiFetch(`${BASE_URL}/bookmarks`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    });
 };
 
-const deleteItem = function() {
-    
+const updateItem = function(id, updateData) {
+    return fetch(`${BASE_URL}/bookmarks/${id}`, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(updateData)
+    });
 };
 
-const updateItem = function() {
-    
+const deleteItem = function(id) {
+    return fetch(`${BASE_URL}/bookmarks/${id}`, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+    });
 };
 
-
+export default {
+    createItem,
+    deleteItem,
+    updateItem,
+    getItems
+};
