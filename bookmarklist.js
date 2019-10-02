@@ -5,11 +5,11 @@ function generateBookmarkForm() {
     return`
     <form id="bookmark-form">
     <label for="title">Title:
-        <input class="bookmark-title-input" name="title" type="text" />
+        <input class="bookmark-title-input" name="title" type="text" required/>
     </label>
     <br />
     <label for="url">URL:
-        <input class="bookmark-url-input" name="url" type="text" placeholder="must include http://" />
+        <input class="bookmark-url-input" name="url" type="text" placeholder="must include http://" required/>
     </label>
     <br />
     <label for="desc">Description:
