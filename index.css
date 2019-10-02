@@ -2,18 +2,25 @@ body {
   background-color: #ffe6e6;
 }
 
-input {
-  border-radius: 5px;
-  padding: 5px 10px;
-  margin-top: 10px;
-  display: inline-block;
-}
-
-h1 {
+header {
   text-align: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
   padding: 10px;
   margin: 0 auto;
+}
+
+button {
+  background: rgb(56, 73, 230);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 0;
+  text-align: center;
+  margin: 0 auto;
+  width: auto;
+  height: auto;
+  display: block;
+  margin-top: 10px;
 }
 
 .container {
