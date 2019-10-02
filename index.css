@@ -1,12 +1,21 @@
 body {
   background-color: #ffe6e6;
+  width: 0 auto;
+  text-align: center;
 }
 
 header {
   text-align: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
-  padding: 10px;
+  padding: 20px;
   margin: 0 auto;
+}
+
+.min-rating {
+  width: 50px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .form-container {
@@ -14,13 +23,17 @@ header {
   font-family: "Comic Sans MS", cursive, sans-serif;
   padding: 10px;
   margin: 0 auto;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 5px;
+  max-width: 30em;
+  margin: 0 auto;
 }
 
 #bookmark-form {
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 5px;
+  max-width: 30em;
+  margin: 0 auto;
 }
 
 button {
@@ -31,10 +44,7 @@ button {
   border: 0;
   text-align: center;
   margin: 0 auto;
-  width: auto;
-  height: auto;
-  display: block;
-  margin-top: 10px;
+  display: inline;
 }
 
 .bookmark-rating-input {
@@ -42,12 +52,16 @@ button {
 }
 
 .bookmark-id {
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 5px;
+  max-width: 30em;
+  margin: 0 auto;
 }
+
 
 ul {
   list-style: none;
+  display: inline;
   text-align: center;
 }
 

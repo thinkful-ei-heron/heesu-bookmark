@@ -16,12 +16,12 @@ function generateBookmarkForm() {
         <input class="bookmark-desc-input" name="desc" type="text" required />
     </label>
     <br />
-    <label for="rating">Rating</label>
+    <label for="rating">Rating
         <input class="bookmark-rating-input" name="rating" type="number" placeholder="1-5" min="1" max="5" required />
-    <br>
-    <input type="submit">
+    </label>
+    <br />
+    <input type="submit"></input>
     </form>
-    <ul class="bookmark-list"></ul>
     `
 };
 
@@ -67,13 +67,6 @@ function render() {
 
     const bookmarklistItemsString = generateBookmarkItemString(items);
     $('.bookmark-list').html(bookmarklistItemsString);
-};
-
-function handleAddBookmarkClick() {
-    $('.addBookmark').on('click', function () {
-        store.toggleAdding();
-        render();
-    })
 };
 
 function handleBookmarkSubmit() {
@@ -124,13 +117,21 @@ $('#contactForm').submit(event => {
     `);
 });
 
+function handleAddBookmarkClick() {
+    $('.addBookmark').on('click', function () {
+        store.toggleAdding();
+        render();
+    })
+};
+
 function handleDeleteItemClick() {
     $('.bookmark-list').on('click', '.delete-bookmark-button', event => {
         const id = getItemIdFromElement(event.target);
         console.log(id);
-        api.deleteItem(id, () => {
-            store.findAndDelete(id);
-            render();
+        api.deleteItem(id)
+            .then(()=> {
+                store.findAndDelete(id);
+                render();        
         })
     })
 };
@@ -165,7 +166,7 @@ function handleCloseError() {
 };
 
 function handleRatingFilterClick() {
-    $('.min-rating').on('click', function () {
+    $('.min-rating').on('change', function () {
         const selection = parseInt($(this).val(), 10);
         store.filterRating = selection;
         render();
