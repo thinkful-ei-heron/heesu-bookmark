@@ -10,41 +10,20 @@
     </head>
 
     <body>
-        <main>
-        <div class="container">
-            <h1>Bookmarks</h1>
-            <form class="js-bookmarkTool">
-    
-            <div>
-                <label for="title">Bookmark Title</label>
-                <input type="text" placeholder="Google" id="title" required></input>
-            </div>
-            <div>
-                <label for="url">URL</label>
-                <input type="text" placeholder="https://www.google.com/" id="url" required></input>
-            </div>
-            <div>
-                <label for="description">Description</label>
-                <input type="text" placeholder="It's Google" id="des" required></input>
-            </div>
-            <div>
-                <label for="rate">Rating</label>
-                <input type="number" placeholder="1-5" id="rate" min="1" max="5" required></input>
-            </div>
-            </form>
-
-            <section class="js-displayCreateBookmark"></section>
-            <ul class="js-listBookmark"></ul>
-            <button type="submit" class="add-item">Make Bookmark</button>
-        </div>
+        <main role="main">
+            <h1>Bookmarks!</h1>
+            
+            <section class="displayBookmarkForm"></section>
+            <ul class="bookmark-list"></ul>
+            
         </main>
-
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" 
+    
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
         crossorigin="anonymous"></script>
-        <script src="index.js" type="text/javascript"></script>
-        <script src="store.js" type="text/javascript"></script>
-        <script src="api.js" type="text/javascript"></script>
-        <script src="bookmarklist.js" type="text/javascript"></script>
+        <script src="index.js" type="module"></script>
+        <script src="store.js" type="module"></script>
+        <script src="api.js" type="module"></script>
+        <script src="bookmarklist.js" type="module"></script>
     </body>
 </html>
