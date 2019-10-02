@@ -1,4 +1,4 @@
-'use strict'
+
 const BASE_URL="https://thinkful-list-api.herokuapp.com/heesu";
 
 const getItems = function() {

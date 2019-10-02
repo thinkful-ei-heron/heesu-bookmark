@@ -1,4 +1,4 @@
-'use strict'
+
 const DATA = {
     bookmarks: [],
     adding: false,
