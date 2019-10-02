@@ -4,23 +4,23 @@ import store from './store.js';
 function generateBookmarkForm() {
     return`
     <form id="bookmark-form">
-    <label for="title">Title
+    <label for="title">Title:
         <input class="bookmark-title-input" name="title" type="text" />
     </label>
     <br />
-    <label for="url">URL
+    <label for="url">URL:
         <input class="bookmark-url-input" name="url" type="text" placeholder="must include http://" />
     </label>
     <br />
-    <label for="desc">Description
+    <label for="desc">Description:
         <input class="bookmark-desc-input" name="desc" type="text" required />
     </label>
     <br />
-    <label for="rating">Rating
+    <label for="rating">Rating:
         <input class="bookmark-rating-input" name="rating" type="number" placeholder="1-5" min="1" max="5" required />
     </label>
     <br />
-    <input type="submit"></input>
+    <button type="submit">Submit</input>
     </form>
     `
 };
@@ -37,9 +37,9 @@ function generateItemElement(item) {
         return `
             <li class="bookmark-id" data-item-id="${item.id}">
                 <p id="title">${item.title}</p>
-                <p>Rating ${item.rating}</p>
-                <p>Link <a href="${item.url}">${item.url}</a></p>
-                <p>Description <br> ${item.desc}</p>
+                <p>Rating: ${item.rating}</p>
+                <p>Link: <a href="${item.url}">${item.url}</a></p>
+                <p>Description: <br> ${item.desc}</p>
                 <button class="delete-bookmark-button"><span class="button-label">DELETE</span></button>
             </li>`;
     }
