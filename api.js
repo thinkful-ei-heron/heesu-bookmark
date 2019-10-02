@@ -21,10 +21,6 @@ const apiFetch = function (...args) {
             return res.json();
         })
         .then(data => {
-            // if error exists, place the JSON message into the error object and 
-            // reject the Promise with your error object so it lands in the next 
-            // catch.  IMPORTANT: Check how the API sends errors -- not all APIs
-            // will respond with a JSON object containing message key
             if (error) {
                 error.message = data.message;
                 return Promise.reject(error);
@@ -40,10 +36,16 @@ const getItems = function () {
 };
 
 const createItem = function (title, url, desc, rating) {
+    let data = {
+        title: title,
+        url: url,
+        desc: desc, 
+        rating: rating
+    };
     return apiFetch(`${BASE_URL}/bookmarks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(title, url, desc, rating)
+        body: JSON.stringify(data)
     });
 };
 

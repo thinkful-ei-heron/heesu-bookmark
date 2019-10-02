@@ -52,8 +52,15 @@ function generateBookmarkItemString(bookmarkList) {
 
 function render() {
     console.log('render working');
-
     let items = store.bookmarks;
+    $('.form-container').html(generateBookmarkForm());
+
+    if(store.adding){
+        $('.form-container').show();
+    } else {
+        $('.form-container').hide();
+    }
+
     if (store.filterRating >= 1) {
         items = store.bookmarks.filter(bookmark => bookmark.rating >= store.filterRating);
     }
@@ -62,9 +69,17 @@ function render() {
     $('.bookmark-list').html(bookmarklistItemsString);
 };
 
+function handleAddBookmarkClick() {
+    $('.addBookmark').on('click', function () {
+        store.toggleAdding();
+        render();
+    })
+};
+
 function handleBookmarkSubmit() {
-    $('#header').on('submit', '#bookmark-form', event => {
+    $('.form-container').on('submit', '#bookmark-form', event => {
         event.preventDefault();
+        console.log("working");
         const bookmarkTitle = $('.bookmark-title-input').val();
         $('.bookmark-title-input').val('');
         const bookmarkURL = $('.bookmark-url-input').val();
@@ -74,14 +89,18 @@ function handleBookmarkSubmit() {
         const bookmarkRating = parseInt($('.bookmark-rating-input').val(), 10);
         $('.bookmark-rating-input').val('');
 
-        api.createItem(bookmarkTitle, bookmarkURL, bookmarkDesc, bookmarkRating, response => {
-            store.addItem(response);
-            render();
-        }, err => {
-            console.log(err)
-            store.setError(err);
-            render();
-        });
+        api.createItem(bookmarkTitle, bookmarkURL, bookmarkDesc, bookmarkRating)
+            .then(items => {
+                store.addItems(items);
+                store.toggleAdding();
+                render();
+            })
+            .catch(
+                err => {
+                console.log(err)
+                store.setError(err);
+                render();
+            });
     });
 };
 
@@ -113,13 +132,6 @@ function handleDeleteItemClick() {
             store.findAndDelete(id);
             render();
         })
-    })
-};
-
-function handleAddBookmarkClick() {
-    $('#showhide').on('click', function () {
-        store.adding = !store.adding;
-        render();
     })
 };
 

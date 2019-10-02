@@ -15,8 +15,12 @@ const findAndUpdate = function(id, newData) {
     Object.assign(updatedItem, newData);
 };
 
-const setError = function (error) {
+const setError = function(error) {
     this.error = error;
+};
+
+function toggleAdding() { 
+    this.adding = !this.adding; 
 };
 
 export default {
@@ -25,6 +29,7 @@ export default {
     error: null,
     filterRating: 0,
     findById,
+    toggleAdding,
     addItems,
     setError,
     findAndDelete,

@@ -9,6 +9,20 @@ header {
   margin: 0 auto;
 }
 
+.form-container {
+  text-align: center;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  padding: 10px;
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#bookmark-form {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
 button {
   background: rgb(56, 73, 230);
   color: white;
@@ -21,6 +35,20 @@ button {
   height: auto;
   display: block;
   margin-top: 10px;
+}
+
+.bookmark-rating-input {
+  width: 50px;
+}
+
+.bookmark-id {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+ul {
+  list-style: none;
+  text-align: center;
 }
 
 .container {
