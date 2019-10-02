@@ -5,11 +5,11 @@ const getItems = function() {
     return fetch(`${BASE_URL}/bookmarks`);
 };
 
-const createItem = function(data) {
+const createItem = function(title, url, desc, rating) {
     return apiFetch(`${BASE_URL}/bookmarks`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
+        body: JSON.stringify(title, url, desc, rating)
     });
 };
 

@@ -1,21 +1,21 @@
 'use strict'
-const store = {
+const DATA = {
     bookmarks: [],
     adding: false,
     error: null,
-    filter: 0
+    filterRating: 0,
 };
 
 const findById = function(id) {
-    return this.items.find(item => item.id === id);
+    return this.DATA.bookmarks.find(item => item.id === id);
 };
 
 const addItems = function(item) {
-    this.bookmarks.push(item);
+    this.DATA.bookmarks.push(item);
 };
 
 const findAndDelete = function(id) {
-    this.items = this.items.filter(item => item.id !== id);
+    this.DATA.bookmarks = this.DATA.bookmarks.filter(item => item.id !== id);
 };
 
 const findAndUpdate = function(id, newData) {
@@ -23,11 +23,8 @@ const findAndUpdate = function(id, newData) {
     Object.assign(updatedItem, newData);
 };
 
-return {
-    bookmarks: [],
-    adding: false,
-    error: null,
-    filter: 0,
+export default {
+    DATA,
     findById,
     addItems,
     findAndDelete,
