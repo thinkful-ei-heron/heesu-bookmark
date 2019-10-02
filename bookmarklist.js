@@ -20,7 +20,7 @@ function generateBookmarkForm() {
         <input class="bookmark-rating-input" name="rating" type="number" placeholder="1-5" min="1" max="5" required />
     </label>
     <br />
-    <button type="submit">Submit</input>
+    <button type="submit">Submit</button>
     </form>
     `
 };
