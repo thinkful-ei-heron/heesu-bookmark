@@ -1,21 +1,13 @@
-
-const DATA = {
-    bookmarks: [],
-    adding: false,
-    error: null,
-    filterRating: 0,
-};
-
 const findById = function(id) {
-    return this.DATA.bookmarks.find(item => item.id === id);
+    return this.bookmarks.find(item => item.id === id);
 };
 
 const addItems = function(item) {
-    this.DATA.bookmarks.push(item);
+    this.bookmarks.push(item);
 };
 
 const findAndDelete = function(id) {
-    this.DATA.bookmarks = this.DATA.bookmarks.filter(item => item.id !== id);
+    this.bookmarks = this.bookmarks.filter(item => item.id !== id);
 };
 
 const findAndUpdate = function(id, newData) {
@@ -23,10 +15,18 @@ const findAndUpdate = function(id, newData) {
     Object.assign(updatedItem, newData);
 };
 
+const setError = function (error) {
+    this.error = error;
+};
+
 export default {
-    DATA,
+    bookmarks: [],
+    adding: false,
+    error: null,
+    filterRating: 0,
     findById,
     addItems,
+    setError,
     findAndDelete,
     findAndUpdate
 };

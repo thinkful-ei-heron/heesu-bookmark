@@ -11,37 +11,20 @@
 </head>
  
 <body>
-    <div class="container">
+    <header>
         <h1>Bookmarks!</h1>
-        
-        <div class="error-container"></div>
-        <div class="main-div">
-            <button id="showhide" type="submit"></button>
-            <br>
-            <span>Minimum Rating</span>
-            <input class="min-rating" name="min-rating" type="number" placeholder="1-5" min="1" max="5" />
-        </div>
+        <button>Add Bookmark +</button>
+        <span>Minimum Rating</span>
+        <select class="min-rating" name="min-rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
 
-        <form id="bookmark-form">
-            <label for="title">Title
-                <input class="bookmark-title-input" name="title" type="text" />
-            </label>
-            <br />
-            <label for="url">URL
-                <input class="bookmark-url-input" name="url" type="text" placeholder="must include http://" />
-            </label>
-            <br />
-            <label for="desc">Description
-                <input class="bookmark-desc-input" name="desc" type="text" required />
-            </label>
-            <br />
-            <label for="rating">Rating</label>
-                <input class="bookmark-rating-input" name="rating" type="number" placeholder="1-5" min="1" max="5" required />
-            <br>
-            <input type="submit">
-        </form>
         <ul class="bookmark-list"></ul>
-    </div>
+    </header>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

@@ -1,75 +1,28 @@
 import api from './api.js';
 import store from './store.js';
 
-//const bookmarkList = (function() {
-function handleBookmarkSubmit() {
-    $('#bookmark-form').submit(function (event) {
-        event.preventDefault();
-        const bookmarkTitle = $('.bookmark-title-input').val();
-        $('.bookmark-title-input').val('');
-        const bookmarkURL = $('.bookmark-url-input').val();
-        $('.bookmark-url-input').val('');
-        const bookmarkDesc = $('.bookmark-desc-input').val();
-        $('.bookmark-desc-input').val('');
-        const bookmarkRating = parseInt($('.bookmark-rating-input').val(), 10);
-        $('.bookmark-rating-input').val('');
-
-        api.createItem(bookmarkTitle, bookmarkURL, bookmarkDesc, bookmarkRating, response => {
-            store.addItem(response);
-            render();
-        }, err => {
-            console.log(err)
-            store.setError(err);
-            render();
-        });
-    });
-};
-
-function render() {
-    console.log('render working');
-    if (store.DATA.error) {
-        const el = generateError(store.DATA.error);
-        $('.error-container').html(el);
-    } else {
-        $('.error-container').empty();
-    }
-
-    let items = store.DATA.bookmarks;
-    if (store.DATA.filterRating >= 1) {
-        items = store.DATA.bookmarks.filter(bookmark => bookmark.rating >= store.DATA.filterRating);
-    }
-
-    button.innerText = 'ADD BOOKMARKS';
-    if (store.DATA.adding) {
-        button.innerText = 'CANCEL'
-        $('#bookmark-form').show();
-    }
-    else {
-        button.innerText = 'ADD BOOKMARKS'
-        $('#bookmark-form').hide();
-    }
-    const bookmarklistItemsString = generateBookmarkItemString(items);
-    $('.bookmark-list').html(bookmarklistItemsString);
-};
-
-function generateBookmarkItemString(bookmarkList) {
-    const items = bookmarkList.map((item) => generateItemElement(item));
-    return items.join('');
-};
-
-function handleError(err) {
-    let errorMessage = '';
-    if (err.responseJSON && err.responseJSON.message) {
-        errorMessage = err.responseJSON.message;
-    } else {
-        errorMessage = `${err.code} Server Error!`;
-    }
-    return `
-        <section class ="error-body">
-            <button id="close-error">X</button>
-            <p>${errorMessage}</p>
-        </section>
-        `;
+function generateBookmarkForm() {
+    return`
+    <form id="bookmark-form">
+    <label for="title">Title
+        <input class="bookmark-title-input" name="title" type="text" />
+    </label>
+    <br />
+    <label for="url">URL
+        <input class="bookmark-url-input" name="url" type="text" placeholder="must include http://" />
+    </label>
+    <br />
+    <label for="desc">Description
+        <input class="bookmark-desc-input" name="desc" type="text" required />
+    </label>
+    <br />
+    <label for="rating">Rating</label>
+        <input class="bookmark-rating-input" name="rating" type="number" placeholder="1-5" min="1" max="5" required />
+    <br>
+    <input type="submit">
+    </form>
+    <ul class="bookmark-list"></ul>
+    `
 };
 
 function generateItemElement(item) {
@@ -92,6 +45,66 @@ function generateItemElement(item) {
     }
 };
 
+function generateBookmarkItemString(bookmarkList) {
+    const items = bookmarkList.map((item) => generateItemElement(item));
+    return items.join('');
+};
+
+function render() {
+    console.log('render working');
+
+    let items = store.bookmarks;
+    if (store.filterRating >= 1) {
+        items = store.bookmarks.filter(bookmark => bookmark.rating >= store.filterRating);
+    }
+
+    const bookmarklistItemsString = generateBookmarkItemString(items);
+    $('.bookmark-list').html(bookmarklistItemsString);
+};
+
+function handleBookmarkSubmit() {
+    $('#header').on('submit', '#bookmark-form', event => {
+        event.preventDefault();
+        const bookmarkTitle = $('.bookmark-title-input').val();
+        $('.bookmark-title-input').val('');
+        const bookmarkURL = $('.bookmark-url-input').val();
+        $('.bookmark-url-input').val('');
+        const bookmarkDesc = $('.bookmark-desc-input').val();
+        $('.bookmark-desc-input').val('');
+        const bookmarkRating = parseInt($('.bookmark-rating-input').val(), 10);
+        $('.bookmark-rating-input').val('');
+
+        api.createItem(bookmarkTitle, bookmarkURL, bookmarkDesc, bookmarkRating, response => {
+            store.addItem(response);
+            render();
+        }, err => {
+            console.log(err)
+            store.setError(err);
+            render();
+        });
+    });
+};
+
+function serializeJson(form) {
+    const formData = new FormData(form);
+    const obj = {};
+    formData.forEach((val, name) => obj[name] = val);
+    return JSON.stringify(obj);
+};
+
+$('#contactForm').submit(event => {
+    event.preventDefault();
+    // These two lines are THE SAME
+    // let formElement = document.querySelector("#contactForm");
+    let formElement = $('#contactForm')[0];
+    // the [0] here selects the native element
+    console.log( serializeJson(formElement) );
+  
+    $('#contactForm').html(`
+      <p>Your form submission has been received!</p>
+    `);
+});
+
 function handleDeleteItemClick() {
     $('.bookmark-list').on('click', '.delete-bookmark-button', event => {
         const id = getItemIdFromElement(event.target);
@@ -105,9 +118,27 @@ function handleDeleteItemClick() {
 
 function handleAddBookmarkClick() {
     $('#showhide').on('click', function () {
-        store.DATA.adding = !store.DATA.adding;
+        store.adding = !store.adding;
         render();
     })
+};
+
+function generateError(message) {
+    return `
+        <section class="error-content">
+          <button id="cancel-error">X</button>
+          <p>${message}</p>
+        </section>
+      `;
+};
+
+function renderError() {
+    if (store.error) {
+      const el = generateError(store.error);
+      $('.error-container').html(el);
+    } else {
+      $('.error-container').empty();
+    }
 };
 
 function getItemIdFromElement(item) {
@@ -116,21 +147,21 @@ function getItemIdFromElement(item) {
 
 function handleCloseError() {
     $('.error-container').on('click', '#cancel-error', () => {
-        store.DATA.error = null;
-        render();
+        store.setError(null);
+        renderError();
     })
 };
 
 function handleRatingFilterClick() {
     $('.min-rating').on('click', function () {
         const selection = parseInt($(this).val(), 10);
-        store.DATA.filterRating = selection;
+        store.filterRating = selection;
         render();
     })
 };
 
 function toggleExpandBookmark(title) {
-    const foundBookmark = store.DATA.bookmarks.find(bookmark => bookmark.title === title);
+    const foundBookmark = store.bookmarks.find(bookmark => bookmark.title === title);
     foundBookmark.expanded = !foundBookmark.expanded;
     render();
 };
@@ -150,13 +181,11 @@ function bindEventListeners() {
     handleAddBookmarkClick()
     handleBookmarkSubmit();
     handleRatingFilterClick();
-    handleError();
+    generateBookmarkForm();
+    renderError();
 };
 
 export default {
     render,
     bindEventListeners
 };
-
-//}());
-
