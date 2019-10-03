@@ -60,9 +60,10 @@ function render() {
     } else {
         $('.form-container').hide();
     }
-
+    
     if (store.filterRating >= 1) {
         items = store.bookmarks.filter(bookmark => bookmark.rating >= store.filterRating);
+        //console.log(`item in render ${items}`);
     }
 
     const bookmarklistItemsString = generateBookmarkItemString(items);
